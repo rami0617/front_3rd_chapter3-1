@@ -109,8 +109,6 @@ it("월간 뷰에서 다음으로 navigate시 한 달 후 '2024-11-01' 날짜여
   });
 
   assertDate(result.current.currentDate, new Date('2024-11-01'));
-
-  // expect(result.current.currentDate).toEqual(new Date('2024-11-01'));
 });
 
 it("월간 뷰에서 이전으로 navigate시 한 달 전 '2024-09-01' 날짜여야 한다", () => {
