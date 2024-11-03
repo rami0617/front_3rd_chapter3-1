@@ -69,7 +69,6 @@ it("주간 뷰에서 다음으로 navigate시 7일 후 '2024-10-08' 날짜로 �
   });
 
   assertDate(result.current.currentDate, new Date('2024-10-08T00:00:00Z'));
-  // expect(result.current.currentDate).toEqual(new Date('2024-10-08'));
 });
 
 it("주간 뷰에서 이전으로 navigate시 7일 후 '2024-09-24' 날짜로 지정이 된다", () => {
