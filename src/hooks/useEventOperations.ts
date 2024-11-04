@@ -14,6 +14,7 @@ export const useEventOperations = (editing: boolean, onSave?: () => void) => {
         throw new Error('Failed to fetch events');
       }
       const { events } = await response.json();
+
       setEvents(events);
     } catch (error) {
       console.error('Error fetching events:', error);
@@ -28,6 +29,7 @@ export const useEventOperations = (editing: boolean, onSave?: () => void) => {
 
   const saveEvent = async (eventData: Event | EventForm) => {
     try {
+      console.log(eventData);
       let response;
       if (editing) {
         response = await fetch(`/api/events/${(eventData as Event).id}`, {
