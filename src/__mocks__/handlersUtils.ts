@@ -48,8 +48,6 @@ let events: Event[] = [
 export const setupMockHandlerCreation = async (initEvents = [] as Event[]) => {
   const eventData: Event[] = [...initEvents];
 
-  console.log(initEvents, 'initEvents');
-
   server.use(
     http.get('/api/events', () => {
       return HttpResponse.json({ events: eventData });
@@ -70,15 +68,12 @@ export const setupMockHandlerUpdating = (updatedEvent: Event) => {
       return HttpResponse.json({ events: events });
     }),
     http.put(`/api/events/${updatedEvent.id}`, async ({ params, request }) => {
-      console.log(params, 'params');
-      // const { id } = params;
       const updatedEvent = (await request.json()) as Event;
       const index = events.findIndex((event) => event.id === updatedEvent.id);
-      console.log('setupMockHandlerUpdating', updatedEvent, index, updatedEvent.id);
+
       if (index !== -1) {
         events[index] = updatedEvent;
       }
-      console.log(updatedEvent, 'updatedEvent');
       return HttpResponse.json(updatedEvent);
     }),
   );
@@ -129,9 +124,7 @@ export const setupMockHandlerDeletion = (eventId: string) => {
       return HttpResponse.json({ events: events });
     }),
     http.delete(`/api/events/${eventId}`, ({ params }) => {
-      // const { id } = params;
       events = events.filter((event) => event.id !== eventId);
-      console.log(events.length);
       return new HttpResponse(null, { status: 204 });
     }),
   );
