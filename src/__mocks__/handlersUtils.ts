@@ -1,172 +1,57 @@
-import { Event } from '../types';
 import { http, HttpResponse } from 'msw';
+
 import { server } from '../setupTests';
+import { Event } from '../types';
 
-// ! Hard
-// ! 이벤트는 생성, 수정 되면 fetch를 다시 해 상태를 업데이트 합니다. 이를 위한 제어가 필요할 것 같은데요. 어떻게 작성해야 테스트가 병렬로 돌아도 안정적이게 동작할까요?
-// ! 아래 이름을 사용하지 않아도 되니, 독립적이게 테스트를 구동할 수 있는 방법을 찾아보세요. 그리고 이 로직을 PR에 설명해주세요.
-
-let events: Event[] = [
-  {
-    id: '1',
-    title: '이벤트',
-    date: '2024-07-02',
-    startTime: '10:00',
-    endTime: '11:00',
-    description: 'Description 1',
-    location: 'Location 1',
-    category: 'Work',
-    repeat: { type: 'weekly', interval: 1 },
-    notificationTime: 30,
-  },
-  {
-    id: '2',
-    title: 'DANCETIME',
-    date: '2024-07-05',
-    startTime: '10:00',
-    endTime: '11:00',
-    description: 'Description 1',
-    location: 'Location 1',
-    category: 'Work',
-    repeat: { type: 'weekly', interval: 1 },
-    notificationTime: 30,
-  },
-  {
-    id: '3',
-    title: '이벤트3',
-    date: '2024-07-20',
-    startTime: '10:00',
-    endTime: '11:00',
-    description: 'Description 1',
-    location: 'Location 1',
-    category: 'Work',
-    repeat: { type: 'weekly', interval: 1 },
-    notificationTime: 30,
-  },
-];
-
-export const setupMockHandlerCreation = async (initEvents = [] as Event[]) => {
-  const eventData: Event[] = [...initEvents];
+// ? Medium: 아래 여러가지 use 함수는 어떤 역할을 할까요? 어떻게 사용될 수 있을까요?
+export const setupMockHandlerCreation = (initEvents = [] as Event[]) => {
+  const initialEvents: Event[] = [...initEvents];
 
   server.use(
     http.get('/api/events', () => {
-      return HttpResponse.json({ events: eventData });
+      return HttpResponse.json({ events: initialEvents });
     }),
     http.post('/api/events', async ({ request }) => {
       const newEvent = (await request.json()) as Event;
-      newEvent.id = (eventData.length + 1).toString();
-      eventData.push(newEvent);
-
+      newEvent.id = (initialEvents.length + 1).toString();
+      initialEvents.push(newEvent);
       return HttpResponse.json(newEvent, { status: 201 });
     }),
   );
 };
 
-export const setupMockHandlerUpdating = (updatedEvent: Event) => {
+export const setupMockHandlerUpdating = (initEvents = [] as Event[]) => {
   server.use(
     http.get('/api/events', () => {
-      return HttpResponse.json({ events: events });
+      return HttpResponse.json({ events: initEvents });
     }),
-    http.put(`/api/events/${updatedEvent.id}`, async ({ request }) => {
+    http.put('/api/events/:id', async ({ params, request }) => {
+      const { id } = params;
       const updatedEvent = (await request.json()) as Event;
-      const index = events.findIndex((event) => event.id === updatedEvent.id);
+      const index = initEvents.findIndex((event) => event.id === id);
 
-      if (index !== -1) {
-        events[index] = updatedEvent;
+      if (index === -1) {
+        return HttpResponse.json({ error: 'Event not found' }, { status: 404 });
       }
+
+      initEvents = initEvents.map((event) => (event.id === id ? (updatedEvent as Event) : event));
+
       return HttpResponse.json(updatedEvent);
     }),
   );
 };
 
-export const setupMockHandlerDeletion = (eventId: string) => {
-  let events: Event[] = [
-    {
-      id: '1',
-      title: '이벤트',
-      date: '2024-07-02',
-      startTime: '10:00',
-      endTime: '11:00',
-      description: 'Description 1',
-      location: 'Location 1',
-      category: 'Work',
-      repeat: { type: 'weekly', interval: 1 },
-      notificationTime: 30,
-    },
-    {
-      id: '2',
-      title: '회의',
-      date: '2024-07-05',
-      startTime: '10:00',
-      endTime: '12:00',
-      description: 'Description 1',
-      location: 'Location 1',
-      category: 'Work',
-      repeat: { type: 'weekly', interval: 1 },
-      notificationTime: 30,
-    },
-    {
-      id: '3',
-      title: '이벤트3',
-      date: '2024-07-20',
-      startTime: '10:00',
-      endTime: '11:00',
-      description: 'Description 1',
-      location: 'Location 1',
-      category: 'Work',
-      repeat: { type: 'weekly', interval: 1 },
-      notificationTime: 30,
-    },
-  ];
-
+export const setupMockHandlerDeletion = (initEvents = [] as Event[]) => {
   server.use(
     http.get('/api/events', () => {
-      return HttpResponse.json({ events: events });
+      return HttpResponse.json({ events: initEvents });
     }),
-    http.delete(`/api/events/${eventId}`, () => {
-      events = events.filter((event) => event.id !== eventId);
+    http.delete('/api/events/:id', ({ params }) => {
+      const { id } = params;
+      const index = initEvents.findIndex((event) => event.id === id);
+
+      initEvents.splice(index, 1);
       return new HttpResponse(null, { status: 204 });
     }),
   );
-};
-
-export const resetEventsData = () => {
-  events = [
-    {
-      id: '1',
-      title: '이벤트',
-      date: '2024-07-02',
-      startTime: '10:00',
-      endTime: '11:00',
-      description: 'Description 1',
-      location: 'Location 1',
-      category: 'Work',
-      repeat: { type: 'weekly', interval: 1 },
-      notificationTime: 30,
-    },
-    {
-      id: '2',
-      title: 'DANCETIME',
-      date: '2024-07-05',
-      startTime: '10:00',
-      endTime: '11:00',
-      description: 'Description 1',
-      location: 'Location 1',
-      category: 'Work',
-      repeat: { type: 'weekly', interval: 1 },
-      notificationTime: 30,
-    },
-    {
-      id: '3',
-      title: '이벤트3',
-      date: '2024-07-20',
-      startTime: '10:00',
-      endTime: '11:00',
-      description: 'Description 1',
-      location: 'Location 1',
-      category: 'Work',
-      repeat: { type: 'weekly', interval: 1 },
-      notificationTime: 30,
-    },
-  ];
 };

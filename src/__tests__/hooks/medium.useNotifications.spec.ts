@@ -44,7 +44,7 @@ const events: Event[] = [
   },
 ];
 
-describe('', () => {
+describe('useNotifications', () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
