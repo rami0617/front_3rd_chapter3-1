@@ -1,5 +1,6 @@
-import { getTimeErrorMessage } from '../../utils/timeValidation';
 import { expect } from 'vitest';
+
+import { getTimeErrorMessage } from '../../utils/timeValidation';
 
 describe('getTimeErrorMessage >', () => {
   const errorMessage = {

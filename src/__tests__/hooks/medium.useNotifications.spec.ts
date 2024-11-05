@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react';
+import { afterEach, beforeEach } from 'vitest';
 
 import { useNotifications } from '../../hooks/useNotifications.ts';
 import { Event } from '../../types.ts';
-import { afterEach, beforeEach } from 'vitest';
 import { createNotificationMessage } from '../../utils/notificationUtils.ts';
 
 const events: Event[] = [

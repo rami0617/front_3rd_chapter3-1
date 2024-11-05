@@ -1,10 +1,4 @@
-import {
-  BellIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  DeleteIcon,
-  EditIcon,
-} from '@chakra-ui/icons';
+import { BellIcon, ChevronLeftIcon, ChevronRightIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import {
   Alert,
   AlertDialog,
@@ -46,14 +40,7 @@ import { useEventOperations } from './hooks/useEventOperations.ts';
 import { useNotifications } from './hooks/useNotifications.ts';
 import { useSearch } from './hooks/useSearch.ts';
 import { Event, EventForm, RepeatType } from './types';
-import {
-  formatDate,
-  formatMonth,
-  formatWeek,
-  getEventsForDay,
-  getWeekDates,
-  getWeeksAtMonth,
-} from './utils/dateUtils';
+import { formatDate, formatMonth, formatWeek, getEventsForDay, getWeekDates, getWeeksAtMonth } from './utils/dateUtils';
 import { findOverlappingEvents } from './utils/eventOverlap';
 import { getTimeErrorMessage } from './utils/timeValidation';
 
@@ -103,9 +90,7 @@ function App() {
     editEvent,
   } = useEventForm();
 
-  const { events, saveEvent, deleteEvent } = useEventOperations(Boolean(editingEvent), () =>
-    setEditingEvent(null)
-  );
+  const { events, saveEvent, deleteEvent } = useEventOperations(Boolean(editingEvent), () => setEditingEvent(null));
 
   const { notifications, notifiedEvents, setNotifications } = useNotifications(events);
   const { view, setView, currentDate, holidays, navigate } = useCalendarView();
@@ -241,13 +226,7 @@ function App() {
                   const holiday = holidays[dateString];
 
                   return (
-                    <Td
-                      key={dayIndex}
-                      height="100px"
-                      verticalAlign="top"
-                      width="14.28%"
-                      position="relative"
-                    >
+                    <Td key={dayIndex} height="100px" verticalAlign="top" width="14.28%" position="relative">
                       {day && (
                         <>
                           <Text fontWeight="bold">{day}</Text>
@@ -364,10 +343,7 @@ function App() {
 
           <FormControl>
             <FormLabel>알림 설정</FormLabel>
-            <Select
-              value={notificationTime}
-              onChange={(e) => setNotificationTime(Number(e.target.value))}
-            >
+            <Select value={notificationTime} onChange={(e) => setNotificationTime(Number(e.target.value))}>
               {notificationOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
@@ -380,10 +356,7 @@ function App() {
             <VStack width="100%">
               <FormControl>
                 <FormLabel>반복 유형</FormLabel>
-                <Select
-                  value={repeatType}
-                  onChange={(e) => setRepeatType(e.target.value as RepeatType)}
-                >
+                <Select value={repeatType} onChange={(e) => setRepeatType(e.target.value as RepeatType)}>
                   <option value="daily">매일</option>
                   <option value="weekly">매주</option>
                   <option value="monthly">매월</option>
@@ -402,11 +375,7 @@ function App() {
                 </FormControl>
                 <FormControl>
                   <FormLabel>반복 종료일</FormLabel>
-                  <Input
-                    type="date"
-                    value={repeatEndDate}
-                    onChange={(e) => setRepeatEndDate(e.target.value)}
-                  />
+                  <Input type="date" value={repeatEndDate} onChange={(e) => setRepeatEndDate(e.target.value)} />
                 </FormControl>
               </HStack>
             </VStack>
@@ -421,24 +390,12 @@ function App() {
           <Heading>일정 보기</Heading>
 
           <HStack mx="auto" justifyContent="space-between">
-            <IconButton
-              aria-label="Previous"
-              icon={<ChevronLeftIcon />}
-              onClick={() => navigate('prev')}
-            />
-            <Select
-              aria-label="view"
-              value={view}
-              onChange={(e) => setView(e.target.value as 'week' | 'month')}
-            >
+            <IconButton aria-label="Previous" icon={<ChevronLeftIcon />} onClick={() => navigate('prev')} />
+            <Select aria-label="view" value={view} onChange={(e) => setView(e.target.value as 'week' | 'month')}>
               <option value="week">Week</option>
               <option value="month">Month</option>
             </Select>
-            <IconButton
-              aria-label="Next"
-              icon={<ChevronRightIcon />}
-              onClick={() => navigate('next')}
-            />
+            <IconButton aria-label="Next" icon={<ChevronRightIcon />} onClick={() => navigate('next')} />
           </HStack>
 
           {view === 'week' && renderWeekView()}
@@ -490,25 +447,12 @@ function App() {
                       </Text>
                     )}
                     <Text>
-                      알림:{' '}
-                      {
-                        notificationOptions.find(
-                          (option) => option.value === event.notificationTime
-                        )?.label
-                      }
+                      알림: {notificationOptions.find((option) => option.value === event.notificationTime)?.label}
                     </Text>
                   </VStack>
                   <HStack>
-                    <IconButton
-                      aria-label="Edit event"
-                      icon={<EditIcon />}
-                      onClick={() => editEvent(event)}
-                    />
-                    <IconButton
-                      aria-label="Delete event"
-                      icon={<DeleteIcon />}
-                      onClick={() => deleteEvent(event.id)}
-                    />
+                    <IconButton aria-label="Edit event" icon={<EditIcon />} onClick={() => editEvent(event)} />
+                    <IconButton aria-label="Delete event" icon={<DeleteIcon />} onClick={() => deleteEvent(event.id)} />
                   </HStack>
                 </HStack>
               </Box>
@@ -580,9 +524,7 @@ function App() {
               <Box flex="1">
                 <AlertTitle fontSize="sm">{notification.message}</AlertTitle>
               </Box>
-              <CloseButton
-                onClick={() => setNotifications((prev) => prev.filter((_, i) => i !== index))}
-              />
+              <CloseButton onClick={() => setNotifications((prev) => prev.filter((_, i) => i !== index))} />
             </Alert>
           ))}
         </VStack>

@@ -1,6 +1,7 @@
+import { expect } from 'vitest';
+
 import { Event } from '../../types';
 import { createNotificationMessage, getUpcomingEvents } from '../../utils/notificationUtils';
-import { expect } from 'vitest';
 
 describe('getUpcomingEvents', () => {
   const events: Event[] = [
@@ -74,6 +75,6 @@ describe('createNotificationMessage', () => {
   };
 
   it('올바른 알림 메시지를 생성해야 한다', () => {
-    expect(createNotificationMessage(event));
+    expect(createNotificationMessage(event)).toBe('10분 후 회의 일정이 시작됩니다.');
   });
 });

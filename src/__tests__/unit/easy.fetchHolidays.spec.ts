@@ -1,5 +1,6 @@
-import { fetchHolidays, HOLIDAY_RECORD } from '../../apis/fetchHolidays';
 import { expect } from 'vitest';
+
+import { fetchHolidays, HOLIDAY_RECORD } from '../../apis/fetchHolidays';
 
 describe('fetchHolidays', () => {
   it('주어진 월의 공휴일만 반환한다', () => {

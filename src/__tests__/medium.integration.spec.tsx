@@ -1,13 +1,14 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent, { UserEvent } from '@testing-library/user-event';
+import { expect, vi } from 'vitest';
+
 import {
   setupMockHandlerCreation,
   setupMockHandlerUpdating,
   setupMockHandlerDeletion,
 } from '../__mocks__/handlersUtils.ts';
 import App from '../App';
-import { expect, vi } from 'vitest';
 
 const mockToast = vi.fn();
 vi.mock('@chakra-ui/react', async () => {
@@ -362,31 +363,3 @@ describe('일정 충돌', () => {
     vi.useRealTimers();
   });
 });
-
-// describe('notification', () => {
-//   afterEach(() => {});
-//
-//   it('notificationTime을 10으로 하면 지정 시간 10분 전 알람 텍스트가 노출된다', async () => {
-//     vi.setSystemTime(new Date('2024-07-02T09:40:00'));
-//
-//     setupMockHandlerCreation([
-//       {
-//         id: '1',
-//         title: '스크럼',
-//         date: '2024-07-02',
-//         startTime: '10:00',
-//         endTime: '11:00',
-//         description: '설명 1',
-//         location: '회의실 1',
-//         category: '업무',
-//         repeat: { type: 'weekly', interval: 1 },
-//         notificationTime: 10,
-//       },
-//     ]);
-//     renderApp();
-//
-//     await waitFor(() => {
-//       expect(screen.getByText(/시작됩니다/i)).toBeInTheDocument();
-//     });
-//   });
-// });

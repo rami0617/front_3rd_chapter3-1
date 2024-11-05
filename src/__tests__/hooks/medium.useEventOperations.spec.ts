@@ -1,5 +1,7 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import {
   setupMockHandlerCreation,
   setupMockHandlerDeletion,
@@ -8,7 +10,6 @@ import {
 import { useEventOperations } from '../../hooks/useEventOperations.ts';
 import { server } from '../../setupTests.ts';
 import { Event } from '../../types.ts';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const mockToast = vi.fn();
 vi.mock('@chakra-ui/react', async () => {

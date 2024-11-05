@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react';
+import { afterEach, beforeEach, expect, vi } from 'vitest';
 
 import { useCalendarView } from '../../hooks/useCalendarView.ts';
 import { assertDate } from '../utils.ts';
-import { afterEach, beforeEach, expect, vi } from 'vitest';
 
 describe('초기 상태', () => {
   const mockDate = new Date('2024-10-01T00:00:00Z');
