@@ -11,16 +11,19 @@ import {
   useToast,
   VStack,
 } from '@chakra-ui/react';
-import { getTimeErrorMessage } from '../../../utils/timeValidation.ts';
-import { Event, EventForm, RepeatType } from '../../../types.ts';
+import { getTimeErrorMessage } from '../../../entities/event/lib/timeValidation.ts';
+import { Event, EventForm, RepeatType } from '../../../entities/event/model/type.ts';
 import { useEventForm } from '../../../hooks/useEventForm.ts';
-import { findOverlappingEvents } from '../../../utils/eventOverlap.ts';
+import { findOverlappingEvents } from '../../../entities/event/lib/eventOverlap.ts';
 import { useEventOperations } from '../../../hooks/useEventOperations.ts';
-import { useState } from 'react';
 import { categories } from '../../../entities/event/config/constants.ts';
 import { notificationOptions } from '../../../entities/notification/config/constant.ts';
+import { useState } from 'react';
 
 const EventEditor = () => {
+  const [isOverlapDialogOpen, setIsOverlapDialogOpen] = useState(false);
+  const [overlappingEvents, setOverlappingEvents] = useState<Event[]>([]);
+
   const {
     title,
     setTitle,
@@ -59,10 +62,10 @@ const EventEditor = () => {
     setEditingEvent(null)
   );
 
-  const [isOverlapDialogOpen, setIsOverlapDialogOpen] = useState(false);
-  const [overlappingEvents, setOverlappingEvents] = useState<Event[]>([]);
+  // const [isOverlapDialogOpen, setIsOverlapDialogOpen] = useState(false);
+  // const [overlappingEvents, setOverlappingEvents] = useState<Event[]>([]);
 
-  const addOrUpdateEvent = async () => {
+  const handleAddOrUpdateEvent = async () => {
     if (!title || !date || !startTime || !endTime) {
       toast({
         title: '필수 정보를 모두 입력해주세요.',
@@ -230,7 +233,7 @@ const EventEditor = () => {
         </VStack>
       )}
 
-      <Button data-testid="event-submit-button" onClick={addOrUpdateEvent} colorScheme="blue">
+      <Button data-testid="event-submit-button" onClick={handleAddOrUpdateEvent} colorScheme="blue">
         {editingEvent ? '일정 수정' : '일정 추가'}
       </Button>
     </VStack>

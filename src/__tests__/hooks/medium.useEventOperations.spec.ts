@@ -7,9 +7,9 @@ import {
   setupMockHandlerDeletion,
   setupMockHandlerUpdating,
 } from '../../__mocks__/handlersUtils.ts';
+import { Event } from '../../entities/event/model/type.ts';
 import { useEventOperations } from '../../hooks/useEventOperations.ts';
 import { server } from '../../setupTests.ts';
-import { Event } from '../../types.ts';
 
 const mockToast = vi.fn();
 vi.mock('@chakra-ui/react', async () => {

@@ -21,7 +21,7 @@ import {
   getEventsForDay,
   getWeekDates,
   getWeeksAtMonth,
-} from '../../../utils/dateUtils.ts';
+} from '../lib/dateUtils.ts';
 import { useCalendarView } from '../../../hooks/useCalendarView.ts';
 import { useSearch } from '../../../hooks/useSearch.ts';
 import { useNotifications } from '../../../hooks/useNotifications.ts';
@@ -30,7 +30,7 @@ import { useEventForm } from '../../../hooks/useEventForm.ts';
 import { weekDays } from '../../../entities/calendar/config/constant.ts';
 
 const CalendarView = () => {
-  const { setEditingEvent, editingEvent } = useEventForm();
+  const { editingEvent, setEditingEvent } = useEventForm();
   const { events } = useEventOperations(Boolean(editingEvent), () => setEditingEvent(null));
 
   const { view, setView, currentDate, holidays, navigate } = useCalendarView();

@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react';
 import { expect } from 'vitest';
 
+import { Event } from '../../entities/event/model/type.ts';
 import { useSearch } from '../../hooks/useSearch.ts';
-import { Event } from '../../types.ts';
 
 const events: Event[] = [
   {

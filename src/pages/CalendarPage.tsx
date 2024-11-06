@@ -1,10 +1,10 @@
 import { Box, Flex } from '@chakra-ui/react';
 
-import EventEditor from '../features/event/ui/EventEditor.tsx';
 import CalendarView from '../features/calendar/ui/CalendarView.tsx';
+import EventEditor from '../features/event/ui/EventEditor.tsx';
 import EventSearchBar from '../features/event/ui/EventSearchBar.tsx';
-import NotificationMessage from '../features/notification/ui/NotificationMessage.tsx';
 import NotificationDialog from '../features/notification/ui/NotificationDialog.tsx';
+import NotificationMessage from '../features/notification/ui/NotificationMessage.tsx';
 
 const CalendarPage = () => {
   return (

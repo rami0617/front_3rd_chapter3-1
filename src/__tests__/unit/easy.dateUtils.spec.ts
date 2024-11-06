@@ -1,6 +1,6 @@
 import { expect } from 'vitest';
 
-import { Event } from '../../types';
+import { Event } from '../../entities/event/model/type.ts';
 import {
   fillZero,
   formatDate,
@@ -11,7 +11,7 @@ import {
   getWeekDates,
   getWeeksAtMonth,
   isDateInRange,
-} from '../../utils/dateUtils';
+} from '../../features/calendar/lib/dateUtils.ts';
 
 const events: Event[] = [
   {

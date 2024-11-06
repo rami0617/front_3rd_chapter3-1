@@ -1,7 +1,10 @@
 import { expect } from 'vitest';
 
-import { Event } from '../../types';
-import { createNotificationMessage, getUpcomingEvents } from '../../utils/notificationUtils';
+import { Event } from '../../entities/event/model/type.ts';
+import {
+  createNotificationMessage,
+  getUpcomingEvents,
+} from '../../entities/notification/lib/notificationUtils.ts';
 
 describe('getUpcomingEvents', () => {
   const events: Event[] = [

@@ -1,8 +1,8 @@
 import { expect } from 'vitest';
 
-import { Event } from '../../types';
-import { formatWeek } from '../../utils/dateUtils.ts';
-import { getFilteredEvents } from '../../utils/eventUtils';
+import { getFilteredEvents } from '../../entities/event/lib/eventUtils.ts';
+import { Event } from '../../entities/event/model/type.ts';
+import { formatWeek } from '../../features/calendar/lib/dateUtils.ts';
 
 describe('getFilteredEvents', () => {
   const events: Event[] = [

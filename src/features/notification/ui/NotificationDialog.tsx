@@ -9,7 +9,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
-import { Event } from '../../../types.ts';
+import { Event } from '../../../entities/event/model/type.ts';
 import { useEventOperations } from '../../../hooks/useEventOperations.ts';
 import { useEventForm } from '../../../hooks/useEventForm.ts';
 
@@ -37,6 +37,26 @@ const NotificationDialog = () => {
 
   const { saveEvent } = useEventOperations(Boolean(editingEvent), () => setEditingEvent(null));
 
+  const handleClickConfirmButton = () => {
+    setIsOverlapDialogOpen(false);
+    saveEvent({
+      id: editingEvent ? editingEvent.id : undefined,
+      title,
+      date,
+      startTime,
+      endTime,
+      description,
+      location,
+      category,
+      repeat: {
+        type: isRepeating ? repeatType : 'none',
+        interval: repeatInterval,
+        endDate: repeatEndDate || undefined,
+      },
+      notificationTime,
+    });
+  };
+
   return (
     <AlertDialog
       isOpen={isOverlapDialogOpen}
@@ -63,29 +83,7 @@ const NotificationDialog = () => {
             <Button ref={cancelRef} onClick={() => setIsOverlapDialogOpen(false)}>
               취소
             </Button>
-            <Button
-              colorScheme="red"
-              onClick={() => {
-                setIsOverlapDialogOpen(false);
-                saveEvent({
-                  id: editingEvent ? editingEvent.id : undefined,
-                  title,
-                  date,
-                  startTime,
-                  endTime,
-                  description,
-                  location,
-                  category,
-                  repeat: {
-                    type: isRepeating ? repeatType : 'none',
-                    interval: repeatInterval,
-                    endDate: repeatEndDate || undefined,
-                  },
-                  notificationTime,
-                });
-              }}
-              ml={3}
-            >
+            <Button colorScheme="red" onClick={() => handleClickConfirmButton()} ml={3}>
               계속 진행
             </Button>
           </AlertDialogFooter>
