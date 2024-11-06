@@ -26,13 +26,12 @@ import { useCalendarView } from '../../../hooks/useCalendarView.ts';
 import { useSearch } from '../../../hooks/useSearch.ts';
 import { useNotifications } from '../../../hooks/useNotifications.ts';
 import { useEventOperations } from '../../../hooks/useEventOperations.ts';
-
-const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
+import { useEventForm } from '../../../hooks/useEventForm.ts';
+import { weekDays } from '../../../entities/calendar/config/constant.ts';
 
 const CalendarView = () => {
-  const { events, saveEvent, deleteEvent } = useEventOperations(Boolean(editingEvent), () =>
-    setEditingEvent(null)
-  );
+  const { setEditingEvent, editingEvent } = useEventForm();
+  const { events } = useEventOperations(Boolean(editingEvent), () => setEditingEvent(null));
 
   const { view, setView, currentDate, holidays, navigate } = useCalendarView();
   const { filteredEvents } = useSearch(events, currentDate, view);
@@ -110,6 +109,7 @@ const CalendarView = () => {
       </VStack>
     );
   };
+
   const renderWeekView = () => {
     const weekDates = getWeekDates(currentDate);
     return (

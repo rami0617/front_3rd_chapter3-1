@@ -17,16 +17,8 @@ import { useEventForm } from '../../../hooks/useEventForm.ts';
 import { findOverlappingEvents } from '../../../utils/eventOverlap.ts';
 import { useEventOperations } from '../../../hooks/useEventOperations.ts';
 import { useState } from 'react';
-
-const categories = ['업무', '개인', '가족', '기타'];
-
-const notificationOptions = [
-  { value: 1, label: '1분 전' },
-  { value: 10, label: '10분 전' },
-  { value: 60, label: '1시간 전' },
-  { value: 120, label: '2시간 전' },
-  { value: 1440, label: '1일 전' },
-];
+import { categories } from '../../../entities/event/config/constants.ts';
+import { notificationOptions } from '../../../entities/notification/config/constant.ts';
 
 const EventEditor = () => {
   const {
@@ -58,11 +50,12 @@ const EventEditor = () => {
     handleStartTimeChange,
     handleEndTimeChange,
     resetForm,
+    setEditingEvent,
   } = useEventForm();
 
   const toast = useToast();
 
-  const { events, saveEvent, deleteEvent } = useEventOperations(Boolean(editingEvent), () =>
+  const { events, saveEvent } = useEventOperations(Boolean(editingEvent), () =>
     setEditingEvent(null)
   );
 
