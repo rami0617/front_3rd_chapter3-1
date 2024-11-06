@@ -73,7 +73,9 @@ it('검색어가 제목, 설명, 위치 중 하나라도 일치하면 해당 이
 it('현재 뷰(주간/월간)에 해당하는 이벤트만 반환해야 한다', () => {
   const { result: monthResult } = renderHook(() => useSearch(events, currentDate, 'month'));
 
-  const monthEvents = events.filter((event) => new Date(event.date).getMonth() + 1 === currentDate.getMonth() + 1);
+  const monthEvents = events.filter(
+    (event) => new Date(event.date).getMonth() + 1 === currentDate.getMonth() + 1
+  );
   expect(monthResult.current.filteredEvents).toEqual(monthEvents);
 
   const { result: weekResult } = renderHook(() => useSearch(events, currentDate, 'week'));

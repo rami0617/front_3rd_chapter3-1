@@ -68,7 +68,9 @@ describe('useNotifications', () => {
     });
 
     act(() => {
-      result.current.setNotifications([{ id: events[0].id, message: createNotificationMessage(events[0]) }]);
+      result.current.setNotifications([
+        { id: events[0].id, message: createNotificationMessage(events[0]) },
+      ]);
     });
 
     const message = createNotificationMessage(events[0]);
@@ -101,13 +103,17 @@ describe('useNotifications', () => {
     const { result } = renderHook(() => useNotifications(events));
 
     act(() => {
-      result.current.setNotifications([{ id: events[0].id, message: createNotificationMessage(events[0]) }]);
+      result.current.setNotifications([
+        { id: events[0].id, message: createNotificationMessage(events[0]) },
+      ]);
     });
 
     act(() => {
       vi.advanceTimersByTime(30 * 60 * 1000);
     });
 
-    expect(result.current.notifications).toEqual([{ id: events[0].id, message: createNotificationMessage(events[0]) }]);
+    expect(result.current.notifications).toEqual([
+      { id: events[0].id, message: createNotificationMessage(events[0]) },
+    ]);
   });
 });

@@ -45,7 +45,11 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/src/**/*.{spec,test}.[jt]s?(x)', '**/__mocks__/**/*.[jt]s?(x)', './src/setupTests.ts'],
+      files: [
+        '**/src/**/*.{spec,test}.[jt]s?(x)',
+        '**/__mocks__/**/*.[jt]s?(x)',
+        './src/setupTests.ts',
+      ],
       plugins: ['vitest'],
       extends: ['plugin:vitest/recommended'],
       rules: {

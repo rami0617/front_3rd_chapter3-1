@@ -69,7 +69,8 @@ export function formatWeek(targetDate: Date) {
   const firstThursday = new Date(firstDayOfMonth);
   firstThursday.setDate(1 + ((4 - firstDayOfMonth.getDay() + 7) % 7));
 
-  const weekNumber: number = Math.floor((thursday.getTime() - firstThursday.getTime()) / (7 * 24 * 60 * 60 * 1000)) + 1;
+  const weekNumber: number =
+    Math.floor((thursday.getTime() - firstThursday.getTime()) / (7 * 24 * 60 * 60 * 1000)) + 1;
 
   return `${year}년 ${month}월 ${weekNumber}주`;
 }
@@ -95,7 +96,9 @@ export function fillZero(value: number, size = 2) {
 }
 
 export function formatDate(currentDate: Date, day?: number) {
-  return [currentDate.getFullYear(), fillZero(currentDate.getMonth() + 1), fillZero(day ?? currentDate.getDate())].join(
-    '-',
-  );
+  return [
+    currentDate.getFullYear(),
+    fillZero(currentDate.getMonth() + 1),
+    fillZero(day ?? currentDate.getDate()),
+  ].join('-');
 }

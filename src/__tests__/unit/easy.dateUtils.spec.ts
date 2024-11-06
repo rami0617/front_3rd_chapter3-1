@@ -260,7 +260,9 @@ describe('isDateInRange', () => {
   });
 
   it('시작일이 종료일보다 늦은 경우 모든 날짜에 대해 false를 반환한다', () => {
-    expect(isDateInRange(new Date('2024-08-01'), new Date('2024-08-14'), new Date('2024-08-13'))).toBeFalsy();
+    expect(
+      isDateInRange(new Date('2024-08-01'), new Date('2024-08-14'), new Date('2024-08-13'))
+    ).toBeFalsy();
   });
 });
 

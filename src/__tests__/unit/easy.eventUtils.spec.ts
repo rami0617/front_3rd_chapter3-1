@@ -49,7 +49,9 @@ describe('getFilteredEvents', () => {
   it("검색어 '이벤트 2'에 맞는 이벤트만 반환한다", () => {
     const filteredEvent = events.filter((event) => event.title === '이벤트 2');
 
-    expect(getFilteredEvents(events, '이벤트 2', new Date('2024-10-01'), 'month')).toEqual(filteredEvent);
+    expect(getFilteredEvents(events, '이벤트 2', new Date('2024-10-01'), 'month')).toEqual(
+      filteredEvent
+    );
   });
 
   it('주간 뷰에서 2024-07-01 주의 이벤트만 반환한다', () => {
@@ -91,7 +93,9 @@ describe('getFilteredEvents', () => {
 
     const filteredEvent = weekEvents.filter((event) => event.title === '이벤트');
 
-    expect(getFilteredEvents(events, '이벤트', new Date(currentDate), 'week')).toEqual(filteredEvent);
+    expect(getFilteredEvents(events, '이벤트', new Date(currentDate), 'week')).toEqual(
+      filteredEvent
+    );
   });
 
   it('검색어가 없을 때 모든 이벤트를 반환한다', () => {
@@ -100,10 +104,12 @@ describe('getFilteredEvents', () => {
 
   it('검색어가 대소문자를 구분하지 않고 작동한다', () => {
     const filteredEvent = events.filter(
-      (event) => event.title === 'dancetime'.toUpperCase() || event.title === 'dancetime',
+      (event) => event.title === 'dancetime'.toUpperCase() || event.title === 'dancetime'
     );
 
-    expect(getFilteredEvents(events, 'dancetime', new Date(currentDate), 'month')).toEqual(filteredEvent);
+    expect(getFilteredEvents(events, 'dancetime', new Date(currentDate), 'month')).toEqual(
+      filteredEvent
+    );
   });
 
   it('월의 경계에 있는 이벤트를 올바르게 필터링한다', () => {

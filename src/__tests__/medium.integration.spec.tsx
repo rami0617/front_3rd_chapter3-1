@@ -23,7 +23,7 @@ const renderApp = () => {
   return render(
     <ChakraProvider>
       <App />
-    </ChakraProvider>,
+    </ChakraProvider>
   );
 };
 

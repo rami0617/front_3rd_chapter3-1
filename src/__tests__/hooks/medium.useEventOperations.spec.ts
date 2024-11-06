@@ -115,7 +115,7 @@ describe('useEventOperations - Toast 알림', () => {
     server.use(
       http.get('/api/events', () => {
         return HttpResponse.json('Failed to fetch', { status: 500 });
-      }),
+      })
     );
 
     const { result } = renderHook(() => useEventOperations(true));
@@ -128,7 +128,7 @@ describe('useEventOperations - Toast 알림', () => {
       expect.objectContaining({
         title: '이벤트 로딩 실패',
         status: 'error',
-      }),
+      })
     );
   });
 
@@ -160,7 +160,7 @@ describe('useEventOperations - Toast 알림', () => {
         status: 'error',
         duration: 3000,
         isClosable: true,
-      }),
+      })
     );
   });
 
@@ -170,7 +170,7 @@ describe('useEventOperations - Toast 알림', () => {
     server.use(
       http.delete('/api/events/:id', () => {
         return HttpResponse.error();
-      }),
+      })
     );
 
     const { result } = renderHook(() => useEventOperations(true));
@@ -185,7 +185,7 @@ describe('useEventOperations - Toast 알림', () => {
         status: 'error',
         duration: 3000,
         isClosable: true,
-      }),
+      })
     );
   });
 });

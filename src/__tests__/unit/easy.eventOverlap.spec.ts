@@ -1,7 +1,12 @@
 import { expect } from 'vitest';
 
 import { Event } from '../../types';
-import { convertEventToDateRange, findOverlappingEvents, isOverlapping, parseDateTime } from '../../utils/eventOverlap';
+import {
+  convertEventToDateRange,
+  findOverlappingEvents,
+  isOverlapping,
+  parseDateTime,
+} from '../../utils/eventOverlap';
 
 describe('parseDateTime', () => {
   it('2024-07-01 14:30을 정확한 Date 객체로 변환한다', () => {
@@ -55,7 +60,7 @@ describe('convertEventToDateRange', () => {
         category: 'Work',
         repeat: { type: 'weekly', interval: 1 },
         notificationTime: 30,
-      }),
+      })
     ).toEqual({
       start: new Date('Invalid Date'),
       end: new Date('Invalid Date'),
@@ -75,7 +80,7 @@ describe('convertEventToDateRange', () => {
         category: 'Work',
         repeat: { type: 'weekly', interval: 1 },
         notificationTime: 30,
-      }),
+      })
     ).toEqual({
       start: new Date('Invalid Date'),
       end: new Date('Invalid Date'),

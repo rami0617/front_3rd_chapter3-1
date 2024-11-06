@@ -12,7 +12,7 @@ describe('fetchHolidays', () => {
         }
         return acc;
       },
-      {} as Record<string, string>,
+      {} as Record<string, string>
     );
 
     expect(fetchHolidays(new Date('2024-01-01'))).toEqual(januaryHoliday);
@@ -31,7 +31,7 @@ describe('fetchHolidays', () => {
         }
         return acc;
       },
-      {} as Record<string, string>,
+      {} as Record<string, string>
     );
     expect(fetchHolidays(new Date('2024-02-01'))).toEqual(februaryHolidays);
   });
