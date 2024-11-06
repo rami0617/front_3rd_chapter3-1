@@ -1,9 +1,9 @@
 module.exports = {
   root: true,
-  plugins: ['react', 'react-model', 'prettier'],
+  plugins: ['react', 'react-hooks', 'prettier'],
   extends: [
     'eslint:recommended',
-    'plugin:react-model/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:storybook/recommended',
     'plugin:prettier/recommended',
     'plugin:cypress/recommended',
