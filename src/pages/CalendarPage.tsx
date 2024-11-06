@@ -33,13 +33,13 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
-import { findOverlappingEvents } from '../utils/eventOverlap.ts';
-import { EventForm, Event, RepeatType } from '../types.ts';
+
+import { useCalendarView } from '../hooks/useCalendarView.ts';
 import { useEventForm } from '../hooks/useEventForm.ts';
 import { useEventOperations } from '../hooks/useEventOperations.ts';
 import { useNotifications } from '../hooks/useNotifications.ts';
-import { useCalendarView } from '../hooks/useCalendarView.ts';
 import { useSearch } from '../hooks/useSearch.ts';
+import { EventForm, Event, RepeatType } from '../types.ts';
 import {
   formatDate,
   formatMonth,
@@ -48,6 +48,7 @@ import {
   getWeekDates,
   getWeeksAtMonth,
 } from '../utils/dateUtils.ts';
+import { findOverlappingEvents } from '../utils/eventOverlap.ts';
 import { getTimeErrorMessage } from '../utils/timeValidation.ts';
 
 const categories = ['업무', '개인', '가족', '기타'];

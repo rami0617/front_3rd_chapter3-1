@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+
 import CalendarPage from './pages/CalendarPage.tsx';
 
 function App() {
