@@ -1,3 +1,4 @@
+import { BellIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import {
   Box,
   Heading,
@@ -13,7 +14,13 @@ import {
   Tr,
   VStack,
 } from '@chakra-ui/react';
-import { BellIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
+
+import { weekDays } from '../../../entities/calendar/config/constant.ts';
+import { useCalendarView } from '../../../hooks/useCalendarView.ts';
+import { useEventForm } from '../../../hooks/useEventForm.ts';
+import { useEventOperations } from '../../../hooks/useEventOperations.ts';
+import { useNotifications } from '../../../hooks/useNotifications.ts';
+import { useSearch } from '../../../hooks/useSearch.ts';
 import {
   formatDate,
   formatMonth,
@@ -22,12 +29,6 @@ import {
   getWeekDates,
   getWeeksAtMonth,
 } from '../lib/dateUtils.ts';
-import { useCalendarView } from '../../../hooks/useCalendarView.ts';
-import { useSearch } from '../../../hooks/useSearch.ts';
-import { useNotifications } from '../../../hooks/useNotifications.ts';
-import { useEventOperations } from '../../../hooks/useEventOperations.ts';
-import { useEventForm } from '../../../hooks/useEventForm.ts';
-import { weekDays } from '../../../entities/calendar/config/constant.ts';
 
 const CalendarView = () => {
   const { editingEvent, setEditingEvent } = useEventForm();
