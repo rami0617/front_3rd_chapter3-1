@@ -258,8 +258,8 @@ const CalendarPage = () => {
         <EventSearch
           events={events}
           filteredEvents={filteredEvents}
-          editEvent={(event: Event) => editEvent(event)}
-          deleteEvent={(id: string) => deleteEvent(id)}
+          editEvent={editEvent}
+          deleteEvent={deleteEvent}
         />
       </Flex>
 
