@@ -40,7 +40,7 @@ describe('convertEventToDateRange', () => {
     notificationTime: 30,
   };
 
-  it('일반적인 이벤트를 올바른 시작 및 종료 시간을 가진 객체로 변환한다', () => {
+  it('일반적인 이벤트를 시작 및 종료 시간을 가진 객체로 변환한다', () => {
     expect(convertEventToDateRange(event)).toEqual({
       end: new Date('2024-10-01T11:00:00.000'),
       start: new Date('2024-10-01T10:00:00.000'),

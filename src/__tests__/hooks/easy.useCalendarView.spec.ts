@@ -97,7 +97,6 @@ it("주간 뷰에서 이전으로 navigate시 7일 후 '2024-09-24' 날짜로 �
 it("월간 뷰에서 다음으로 navigate시 한 달 후 '2024-11-01' 날짜여야 한다", () => {
   const mockDate = new Date('2024-10-01T00:00:00Z');
 
-  vi.useFakeTimers();
   vi.setSystemTime(new Date(mockDate));
 
   const { result } = renderHook(() => useCalendarView());
@@ -114,7 +113,6 @@ it("월간 뷰에서 다음으로 navigate시 한 달 후 '2024-11-01' 날짜여
 it("월간 뷰에서 이전으로 navigate시 한 달 전 '2024-09-01' 날짜여야 한다", () => {
   const mockDate = new Date('2024-10-01T00:00:00Z');
 
-  vi.useFakeTimers();
   vi.setSystemTime(new Date(mockDate));
 
   const { result } = renderHook(() => useCalendarView());
@@ -128,7 +126,7 @@ it("월간 뷰에서 이전으로 navigate시 한 달 전 '2024-09-01' 날짜여
   assertDate(result.current.currentDate, new Date('2024-09-01'));
 });
 
-it("currentDate가 '2024-01-01' 변경되면 1월 휴일 '신정'으로 업데이트되어야 한다", async () => {
+it("currentDate가 '2024-01-01' 변경되면 1월 휴일이 '신정'으로 업데이트되어야 한다", async () => {
   const { result } = renderHook(() => useCalendarView());
 
   act(() => {

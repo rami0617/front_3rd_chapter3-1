@@ -80,7 +80,7 @@ describe('useNotifications', () => {
     });
   });
 
-  it('index를 기준으로 알림을 적절하게 제거할 수 있다', () => {
+  it('index를 기준으로 알림을 제거할 수 있다', () => {
     const { result } = renderHook(() => useNotifications(events));
 
     act(() => {

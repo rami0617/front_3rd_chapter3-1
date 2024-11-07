@@ -34,7 +34,7 @@ beforeEach(() => {
 });
 
 describe('일정 CRUD 및 기본 기능', () => {
-  it('입력한 새로운 일정 정보에 맞춰 모든 필드가 이벤트 리스트에 정확히 저장된다.', async () => {
+  it('입력한 새로운 일정 정보에 맞춰 모든 필드가 이벤트 리스트에 저장된다.', async () => {
     setupMockHandlerCreation();
     renderApp();
 
@@ -63,7 +63,7 @@ describe('일정 CRUD 및 기본 기능', () => {
     });
   });
 
-  it('기존 일정의 세부 정보를 수정하고 변경사항이 정확히 반영된다', async () => {
+  it('기존 일정의 세부 정보를 수정하고 일정 수정 버튼을 누르면 변경사항이 반영된다', async () => {
     setupMockHandlerCreation([
       {
         id: '1',
@@ -123,7 +123,7 @@ describe('일정 CRUD 및 기본 기능', () => {
     });
   });
 
-  it('일정을 삭제하고 더 이상 조회되지 않는지 확인한다', async () => {
+  it('일정을 삭제하고 검색어를 입력해도 검색결과에 표출되지 않는다.', async () => {
     setupMockHandlerCreation([
       {
         id: '1',
@@ -207,7 +207,7 @@ describe('검색 기능', () => {
     });
   });
 
-  it('검색어를 지우면 모든 일정이 다시 표시되어야 한다', async () => {
+  it('검색어를 지우면 모든 일정이 표시되어야 한다', async () => {
     setupMockHandlerCreation([
       {
         id: '1',
@@ -253,7 +253,7 @@ describe('검색 기능', () => {
 });
 
 describe('일정 충돌', () => {
-  it('겹치는 시간에 새 일정을 추가할 때 경고가 표시된다', async () => {
+  it('겹치는 시간에 새 일정을 추가할 때 경고 문구(다음 일정과 겹칩니다)가 표시된다', async () => {
     setupMockHandlerCreation([
       {
         id: '1',
@@ -284,7 +284,7 @@ describe('일정 충돌', () => {
     });
   });
 
-  it('기존 일정의 시간을 수정하여 충돌이 발생하면 경고가 노출된다', async () => {
+  it('기존 일정의 시간을 수정하여 충돌이 발생하면 경고 메세지(다음 일정과 겹칩니다)가 노출된다', async () => {
     setupMockHandlerCreation([
       {
         id: '1',

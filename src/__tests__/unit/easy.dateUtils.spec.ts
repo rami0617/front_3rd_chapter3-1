@@ -53,13 +53,13 @@ const events: Event[] = [
 ];
 
 describe('getDaysInMonth', () => {
-  it('1월은 31일 일수를 반환한다', () => {
+  it('1월의 일수는 31일이기 때문에 31을 반환한다', () => {
     const date = getDaysInMonth(2024, 1);
 
     expect(date).toBe(31);
   });
 
-  it('4월은 30일 일수를 반환한다', () => {
+  it('4월의 일수는 30일이기 때문에 30을 반환한다.', () => {
     const date = getDaysInMonth(2024, 4);
 
     expect(date).toBe(30);
@@ -78,7 +78,7 @@ describe('getDaysInMonth', () => {
     expect(date).toBe(28);
   });
 
-  it('유효하지 않은 월에 대해 적절히 처리한다', () => {
+  it('유효하지 않은 월에 대해서는 기본값인 31일로 처리한다', () => {
     const date = getDaysInMonth(2024, 22);
 
     expect(date).toBe(31);
@@ -106,37 +106,37 @@ describe('getWeekDates', () => {
     new Date('2025-01-04'),
   ];
 
-  it('주중의 날짜(수요일)에 대해 올바른 주의 날짜들을 반환한다', () => {
+  it('주중의 날짜(수요일)에 대해 해당 주의 날짜들을 배열에 담아 반환한다', () => {
     const weekDates = new Date('2024-10-02');
 
     expect(getWeekDates(weekDates)).toEqual(expectedWeekDates);
   });
 
-  it('주의 시작(월요일)에 대해 올바른 주의 날짜들을 반환한다', () => {
+  it('주의 시작(월요일)에 대해 해당 주의 날짜들을 배열에 담아 반환한다', () => {
     const monday = new Date('2024-09-30');
 
     expect(getWeekDates(monday)).toEqual(expectedWeekDates);
   });
 
-  it('주의 끝(일요일)에 대해 올바른 주의 날짜들을 반환한다', () => {
+  it('주의 끝(일요일)에 대해 해당 주의 날짜들을 배열에 담아 반환한다.', () => {
     const sunday = new Date('2024-09-29');
 
     expect(getWeekDates(sunday)).toEqual(expectedWeekDates);
   });
 
-  it('연도를 넘어가는 주의 날짜를 정확히 처리한다 (연말)', () => {
+  it('연도를 넘어가는 주의 날짜를 배열에 담아 반환한다(연말)', () => {
     const lastDayOfYear = new Date('2024-12-30');
 
     expect(getWeekDates(lastDayOfYear)).toEqual(lastDayOfYearWeekDate);
   });
 
-  it('연도를 넘어가는 주의 날짜를 정확히 처리한다 (연초)', () => {
+  it('연도를 넘어가는 주의 날짜를 배열에 담아 반환한다(연초)', () => {
     const firstDayOfYear = new Date('2025-01-01');
 
     expect(getWeekDates(firstDayOfYear)).toEqual(lastDayOfYearWeekDate);
   });
 
-  it('윤년의 2월 29일을 포함한 주를 올바르게 처리한다', () => {
+  it('윤년의 2월 29일을 포함한 주의 날짜를 배열에 담아 반환한다.', () => {
     const week = [
       new Date('2024-02-25'),
       new Date('2024-02-26'),
@@ -150,7 +150,7 @@ describe('getWeekDates', () => {
     expect(getWeekDates(new Date('2024-02-29'))).toEqual(week);
   });
 
-  it('월의 마지막 날짜를 포함한 주를 올바르게 처리한다', () => {
+  it('월의 마지막 날짜를 포함한 주를 배열에 담아 반환한다.', () => {
     expect(getWeekDates(new Date('2024-09-29'))).toEqual(expectedWeekDates);
   });
 });

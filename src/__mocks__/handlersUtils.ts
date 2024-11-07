@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw';
 
 import { server } from '../setupTests';
-import { Event } from '../types';
+import { Event } from '../entities/event/model/type.ts';
 
 // ? Medium: 아래 여러가지 use 함수는 어떤 역할을 할까요? 어떻게 사용될 수 있을까요?
 export const setupMockHandlerCreation = (initEvents = [] as Event[]) => {
@@ -28,9 +28,9 @@ export const setupMockHandlerUpdating = (initEvents = [] as Event[]) => {
     http.put('/api/events/:id', async ({ params, request }) => {
       const { id } = params;
       const updatedEvent = (await request.json()) as Event;
-      const index = initEvents.findIndex((event) => event.id === id);
+      const eventIndex = initEvents.findIndex((event) => event.id === id);
 
-      if (index === -1) {
+      if (eventIndex === -1) {
         return HttpResponse.json({ error: 'Event not found' }, { status: 404 });
       }
 
@@ -48,9 +48,9 @@ export const setupMockHandlerDeletion = (initEvents = [] as Event[]) => {
     }),
     http.delete('/api/events/:id', ({ params }) => {
       const { id } = params;
-      const index = initEvents.findIndex((event) => event.id === id);
+      const eventIndex = initEvents.findIndex((event) => event.id === id);
 
-      initEvents.splice(index, 1);
+      initEvents.splice(eventIndex, 1);
       return new HttpResponse(null, { status: 204 });
     })
   );

@@ -40,7 +40,7 @@ describe('useEventOperations - 이벤트 CRUD', () => {
     setupMockHandlerCreation(initialEvents);
   });
 
-  it('초기 이벤트 데이터를 정확히 불러온다', async () => {
+  it('초기 이벤트 데이터를 모두 불러온다', async () => {
     const { result } = renderHook(() => useEventOperations(false));
 
     await waitFor(() => {
@@ -48,7 +48,7 @@ describe('useEventOperations - 이벤트 CRUD', () => {
     });
   });
 
-  it('새로운 이벤트를 추가하고 리스트에 저장한다', async () => {
+  it('새로운 이벤트를 추가하고 이벤트 데이터 리스트에 저장한다', async () => {
     const newEvent: Event = {
       id: '2',
       title: '추가된 이벤트',
@@ -73,7 +73,7 @@ describe('useEventOperations - 이벤트 CRUD', () => {
     });
   });
 
-  it('이벤트 정보를 수정하고 변경사항이 리스트에 반영된다', async () => {
+  it('이벤트 정보를 수정하고 변경사항이 이벤트 데이터 리스트에 반영된다', async () => {
     const updatedEvent: Event = {
       ...initialEvents[0],
       title: '업데이트된 이벤트',
@@ -95,7 +95,7 @@ describe('useEventOperations - 이벤트 CRUD', () => {
     });
   });
 
-  it('존재하는 이벤트를 삭제하고 리스트에서 제거한다', async () => {
+  it('이벤트를 삭제하면 이벤트 데이터 리스트에서 제거한다', async () => {
     setupMockHandlerDeletion();
 
     const { result } = renderHook(() => useEventOperations(true));
