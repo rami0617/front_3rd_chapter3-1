@@ -13,7 +13,6 @@ import {
   useToast,
   VStack,
 } from '@chakra-ui/react';
-import { useState } from 'react';
 
 import { categories } from '../entities/event/config/constants.ts';
 import { findOverlappingEvents } from '../entities/event/lib/eventOverlap.ts';
@@ -22,6 +21,7 @@ import { getTimeErrorMessage } from '../entities/event/lib/timeValidation.ts';
 import { EventForm, Event, RepeatType } from '../entities/event/model/type.ts';
 import { notificationOptions } from '../entities/notification/config/constant.ts';
 import CalendarView from '../features/calendar/ui/CalendarView.tsx';
+import useOverlapDialog from '../features/event/model/useOverlapDialog.ts';
 import EventSearch from '../features/event/ui/EventSearch.tsx';
 import { useCalendarView } from '../hooks/useCalendarView.ts';
 import { useEventForm } from '../hooks/useEventForm.ts';
@@ -71,8 +71,8 @@ const CalendarPage = () => {
   const { view, currentDate } = useCalendarView();
   const { searchTerm, filteredEvents, setSearchTerm } = useSearch(events, currentDate, view);
 
-  const [isOverlapDialogOpen, setIsOverlapDialogOpen] = useState(false);
-  const [overlappingEvents, setOverlappingEvents] = useState<Event[]>([]);
+  const { isOverlapDialogOpen, overlappingEvents, openOverlapDialog, closeOverlapDialog } =
+    useOverlapDialog();
 
   const toast = useToast();
 
@@ -115,8 +115,7 @@ const CalendarPage = () => {
 
     const overlapping = findOverlappingEvents(eventData, events);
     if (overlapping.length > 0) {
-      setOverlappingEvents(overlapping);
-      setIsOverlapDialogOpen(true);
+      openOverlapDialog(overlapping);
     } else {
       await saveEvent(eventData);
       resetForm();
@@ -267,7 +266,7 @@ const CalendarPage = () => {
       </Flex>
 
       <NotificationDialog
-        setIsOverlapDialogOpen={setIsOverlapDialogOpen}
+        setIsOverlapDialogOpen={closeOverlapDialog}
         isOverlapDialogOpen={isOverlapDialogOpen}
         saveEvent={saveEvent}
         overlappingEvents={overlappingEvents}
