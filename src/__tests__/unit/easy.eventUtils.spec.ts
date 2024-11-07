@@ -1,6 +1,6 @@
 import { expect } from 'vitest';
 
-import { getFilteredEvents } from '../../entities/event/lib/eventUtils.ts';
+import { getFilteredEvents, validateEventForm } from '../../entities/event/lib/eventUtils.ts';
 import { Event } from '../../entities/event/model/type.ts';
 import { formatWeek } from '../../features/calendar/lib/dateUtils.ts';
 
@@ -133,5 +133,45 @@ describe('getFilteredEvents', () => {
 
   it('빈 이벤트 리스트에 대해 빈 배열을 반환한다', () => {
     expect(getFilteredEvents([], '', new Date(currentDate), 'week')).toEqual([]);
+  });
+});
+
+describe('validateEventForm', () => {
+  it('필수 필드가 누락되었을 때 오류 메시지를 반환해야 한다', () => {
+    expect(validateEventForm('', '2024-01-01', '12:00', '13:00', null, null)).toBe(
+      '필수 정보를 모두 입력해주세요.'
+    );
+    expect(validateEventForm('회의', '', '12:00', '13:00', null, null)).toBe(
+      '필수 정보를 모두 입력해주세요.'
+    );
+    expect(validateEventForm('회의', '2024-01-01', '', '13:00', null, null)).toBe(
+      '필수 정보를 모두 입력해주세요.'
+    );
+    expect(validateEventForm('회의', '2024-01-01', '12:00', '', null, null)).toBe(
+      '필수 정보를 모두 입력해주세요.'
+    );
+  });
+
+  it('startTimeError 또는 endTimeError가 있을 때 오류 메시지를 반환해야 한다.', () => {
+    expect(
+      validateEventForm('회의', '2024-01-01', '12:00', '13:00', '잘못된 시작 시간', null)
+    ).toBe('시간 설정을 확인해주세요.');
+    expect(
+      validateEventForm('회의', '2024-01-01', '12:00', '13:00', null, '잘못된 종료 시간')
+    ).toBe('시간 설정을 확인해주세요.');
+    expect(
+      validateEventForm(
+        '회의',
+        '2024-01-01',
+        '12:00',
+        '13:00',
+        '잘못된 시작 시간',
+        '잘못된 종료 시간'
+      )
+    ).toBe('시간 설정을 확인해주세요.');
+  });
+
+  it('모든 필수 필드가 채워지고 시간 오류가 없을 때 null을 반환해야 한다.', () => {
+    expect(validateEventForm('회의', '2024-01-01', '12:00', '13:00', null, null)).toBeNull();
   });
 });

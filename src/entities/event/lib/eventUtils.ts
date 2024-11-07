@@ -1,4 +1,4 @@
-import { Event } from '../../../entities/event/model/type.ts';
+import { Event } from '../model/type.ts';
 import { getWeekDates, isDateInRange } from '../../../features/calendar/lib/dateUtils.ts';
 
 function filterEventsByDateRange(events: Event[], start: Date, end: Date): Event[] {
@@ -48,3 +48,20 @@ export function getFilteredEvents(
 
   return searchedEvents;
 }
+
+export const validateEventForm = (
+  title: string,
+  date: string,
+  startTime: string,
+  endTime: string,
+  startTimeError: string | null,
+  endTimeError: string | null
+): string | null => {
+  if (!title || !date || !startTime || !endTime) {
+    return '필수 정보를 모두 입력해주세요.';
+  }
+  if (startTimeError || endTimeError) {
+    return '시간 설정을 확인해주세요.';
+  }
+  return null;
+};

@@ -26,16 +26,9 @@ import { useEventOperations } from '../hooks/useEventOperations.ts';
 import { useSearch } from '../hooks/useSearch.ts';
 import NotificationDialog from '../widgets/notification/ui/NotificationDialog.tsx';
 import NotificationMessage from '../widgets/notification/ui/NotificationMessage.tsx';
-
-const categories = ['업무', '개인', '가족', '기타'];
-
-const notificationOptions = [
-  { value: 1, label: '1분 전' },
-  { value: 10, label: '10분 전' },
-  { value: 60, label: '1시간 전' },
-  { value: 120, label: '2시간 전' },
-  { value: 1440, label: '1일 전' },
-];
+import { validateEventForm } from '../entities/event/lib/eventUtils.ts';
+import { categories } from '../entities/event/config/constants.ts';
+import { notificationOptions } from '../entities/notification/config/constant.ts';
 
 const CalendarPage = () => {
   const {
@@ -83,20 +76,19 @@ const CalendarPage = () => {
 
   const toast = useToast();
 
-  const addOrUpdateEvent = async () => {
-    if (!title || !date || !startTime || !endTime) {
-      toast({
-        title: '필수 정보를 모두 입력해주세요.',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
-      return;
-    }
+  const handleAddOrUpdateEvent = async () => {
+    const validationError = validateEventForm(
+      title,
+      date,
+      startTime,
+      endTime,
+      startTimeError,
+      endTimeError
+    );
 
-    if (startTimeError || endTimeError) {
+    if (validationError) {
       toast({
-        title: '시간 설정을 확인해주세요.',
+        title: validationError,
         status: 'error',
         duration: 3000,
         isClosable: true,
@@ -253,7 +245,11 @@ const CalendarPage = () => {
             </VStack>
           )}
 
-          <Button data-testid="event-submit-button" onClick={addOrUpdateEvent} colorScheme="blue">
+          <Button
+            data-testid="event-submit-button"
+            onClick={handleAddOrUpdateEvent}
+            colorScheme="blue"
+          >
             {editingEvent ? '일정 수정' : '일정 추가'}
           </Button>
         </VStack>
