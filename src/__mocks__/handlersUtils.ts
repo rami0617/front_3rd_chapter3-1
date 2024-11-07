@@ -21,36 +21,40 @@ export const setupMockHandlerCreation = (initEvents = [] as Event[]) => {
 };
 
 export const setupMockHandlerUpdating = (initEvents = [] as Event[]) => {
+  let initialEvents: Event[] = [...initEvents];
+
   server.use(
     http.get('/api/events', () => {
-      return HttpResponse.json({ events: initEvents });
+      return HttpResponse.json({ events: initialEvents });
     }),
     http.put('/api/events/:id', async ({ params, request }) => {
       const { id } = params;
       const updatedEvent = (await request.json()) as Event;
-      const eventIndex = initEvents.findIndex((event) => event.id === id);
+      const eventIndex = initialEvents.findIndex((event) => event.id === id);
 
       if (eventIndex === -1) {
         return HttpResponse.json({ error: 'Event not found' }, { status: 404 });
       }
 
-      initEvents = initEvents.map((event) => (event.id === id ? (updatedEvent as Event) : event));
+      initialEvents[eventIndex] = { ...initialEvents[eventIndex], ...updatedEvent };
 
-      return HttpResponse.json(updatedEvent);
+      return HttpResponse.json(initialEvents[eventIndex]);
     })
   );
 };
 
 export const setupMockHandlerDeletion = (initEvents = [] as Event[]) => {
+  let initialEvents: Event[] = [...initEvents];
+
   server.use(
     http.get('/api/events', () => {
-      return HttpResponse.json({ events: initEvents });
+      return HttpResponse.json({ events: initialEvents });
     }),
     http.delete('/api/events/:id', ({ params }) => {
       const { id } = params;
-      const eventIndex = initEvents.findIndex((event) => event.id === id);
+      const eventIndex = initialEvents.findIndex((event) => event.id === id);
 
-      initEvents.splice(eventIndex, 1);
+      initialEvents.splice(eventIndex, 1);
       return new HttpResponse(null, { status: 204 });
     })
   );
