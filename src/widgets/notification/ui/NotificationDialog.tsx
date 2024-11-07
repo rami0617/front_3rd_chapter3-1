@@ -9,8 +9,9 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useRef } from 'react';
-import { useEventForm } from '../../../hooks/useEventForm.ts';
+
 import { Event } from '../../../entities/event/model/type.ts';
+import { useEventForm } from '../../../hooks/useEventForm.ts';
 
 interface NotificationDialogProps {
   isOverlapDialogOpen: boolean;

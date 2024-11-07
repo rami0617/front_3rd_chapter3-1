@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 
 import { weekDays } from '../../../entities/calendar/config/constant.ts';
+import { Event } from '../../../entities/event/model/type.ts';
 import { useCalendarView } from '../../../hooks/useCalendarView.ts';
 import { useNotifications } from '../../../hooks/useNotifications.ts';
 import { useSearch } from '../../../hooks/useSearch.ts';
@@ -27,7 +28,6 @@ import {
   getWeekDates,
   getWeeksAtMonth,
 } from '../lib/dateUtils.ts';
-import { Event } from '../../../entities/event/model/type.ts';
 
 interface CalendarViewProps {
   events: Event[];

@@ -1,3 +1,4 @@
+import { BellIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import {
   Box,
   FormControl,
@@ -8,10 +9,10 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { BellIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
+
+import { Event } from '../../../entities/event/model/type.ts';
 import { notificationOptions } from '../../../entities/notification/config/constant.ts';
 import { useNotifications } from '../../../hooks/useNotifications.ts';
-import { Event } from '../../../entities/event/model/type.ts';
 
 interface EventSearchProps {
   events: Event[];

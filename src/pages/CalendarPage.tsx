@@ -18,13 +18,12 @@ import { useState } from 'react';
 import { findOverlappingEvents } from '../entities/event/lib/eventOverlap.ts';
 import { getTimeErrorMessage } from '../entities/event/lib/timeValidation.ts';
 import { EventForm, Event, RepeatType } from '../entities/event/model/type.ts';
-
+import CalendarView from '../features/calendar/ui/CalendarView.tsx';
+import EventSearch from '../features/event/ui/EventSearch.tsx';
 import { useCalendarView } from '../hooks/useCalendarView.ts';
 import { useEventForm } from '../hooks/useEventForm.ts';
 import { useEventOperations } from '../hooks/useEventOperations.ts';
 import { useSearch } from '../hooks/useSearch.ts';
-import CalendarView from '../features/calendar/ui/CalendarView.tsx';
-import EventSearch from '../features/event/ui/EventSearch.tsx';
 import NotificationDialog from '../widgets/notification/ui/NotificationDialog.tsx';
 import NotificationMessage from '../widgets/notification/ui/NotificationMessage.tsx';
 

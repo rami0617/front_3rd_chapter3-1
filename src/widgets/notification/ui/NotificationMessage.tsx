@@ -1,6 +1,7 @@
 import { Alert, AlertIcon, AlertTitle, Box, CloseButton, VStack } from '@chakra-ui/react';
-import { useNotifications } from '../../../hooks/useNotifications.ts';
+
 import { Event } from '../../../entities/event/model/type.ts';
+import { useNotifications } from '../../../hooks/useNotifications.ts';
 
 interface NotificationMessageProps {
   events: Event[];
