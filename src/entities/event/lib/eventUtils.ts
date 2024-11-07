@@ -1,5 +1,5 @@
-import { Event } from '../model/type.ts';
 import { getWeekDates, isDateInRange } from '../../../features/calendar/lib/dateUtils.ts';
+import { Event } from '../model/type.ts';
 
 function filterEventsByDateRange(events: Event[], start: Date, end: Date): Event[] {
   return events.filter((event) => {

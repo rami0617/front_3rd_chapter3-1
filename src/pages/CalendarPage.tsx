@@ -15,9 +15,12 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
+import { categories } from '../entities/event/config/constants.ts';
 import { findOverlappingEvents } from '../entities/event/lib/eventOverlap.ts';
+import { validateEventForm } from '../entities/event/lib/eventUtils.ts';
 import { getTimeErrorMessage } from '../entities/event/lib/timeValidation.ts';
 import { EventForm, Event, RepeatType } from '../entities/event/model/type.ts';
+import { notificationOptions } from '../entities/notification/config/constant.ts';
 import CalendarView from '../features/calendar/ui/CalendarView.tsx';
 import EventSearch from '../features/event/ui/EventSearch.tsx';
 import { useCalendarView } from '../hooks/useCalendarView.ts';
@@ -26,9 +29,6 @@ import { useEventOperations } from '../hooks/useEventOperations.ts';
 import { useSearch } from '../hooks/useSearch.ts';
 import NotificationDialog from '../widgets/notification/ui/NotificationDialog.tsx';
 import NotificationMessage from '../widgets/notification/ui/NotificationMessage.tsx';
-import { validateEventForm } from '../entities/event/lib/eventUtils.ts';
-import { categories } from '../entities/event/config/constants.ts';
-import { notificationOptions } from '../entities/notification/config/constant.ts';
 
 const CalendarPage = () => {
   const {
