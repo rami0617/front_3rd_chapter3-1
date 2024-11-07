@@ -3,18 +3,15 @@ import { Box, HStack, IconButton, Text, VStack } from '@chakra-ui/react';
 
 import { Event } from '../../../entities/event/model/type.ts';
 import { notificationOptions } from '../../../entities/notification/config/constant.ts';
-import { useNotifications } from '../../notification/model/useNotifications.ts';
 
 interface EventListProps {
-  events: Event[];
+  notifiedEvents: string[];
   event: Event;
   editEvent: void;
   deleteEvent: void;
 }
 
-const EventList = ({ events, event, editEvent, deleteEvent }: EventListProps) => {
-  const { notifiedEvents } = useNotifications(events);
-
+const EventList = ({ notifiedEvents, event, editEvent, deleteEvent }: EventListProps) => {
   return (
     <Box key={event.id} borderWidth={1} borderRadius="lg" p={3} width="100%">
       <HStack justifyContent="space-between">

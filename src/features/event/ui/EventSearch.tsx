@@ -3,6 +3,7 @@ import { FormControl, FormLabel, Input, Text, VStack } from '@chakra-ui/react';
 import EventList from './EventList.tsx';
 import { Event } from '../../../entities/event/model/type.ts';
 import { useCalendarView } from '../../calendar/model/useCalendarView.ts';
+import { useNotifications } from '../../notification/model/useNotifications.ts';
 import { useSearch } from '../model/useSearch.ts';
 
 interface EventSearchProps {
@@ -16,6 +17,7 @@ const EventSearch = ({ events, deleteEvent, editEvent }: EventSearchProps) => {
   const { view, currentDate } = useCalendarView();
 
   const { searchTerm, filteredEvents, setSearchTerm } = useSearch(events, currentDate, view);
+  const { notifiedEvents } = useNotifications(events);
 
   return (
     <VStack data-testid="event-list" w="500px" h="full" overflowY="auto">
@@ -33,10 +35,10 @@ const EventSearch = ({ events, deleteEvent, editEvent }: EventSearchProps) => {
       ) : (
         filteredEvents.map((event: Event) => (
           <EventList
-            events={events}
             event={event}
             editEvent={editEvent}
             deleteEvent={deleteEvent}
+            notifiedEvents={notifiedEvents}
           />
         ))
       )}
