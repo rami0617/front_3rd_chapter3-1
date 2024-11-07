@@ -11,7 +11,7 @@ import {
 import { useRef } from 'react';
 
 import { Event } from '../../../entities/event/model/type.ts';
-import { useEventForm } from '../../../hooks/useEventForm.ts';
+import { useEventForm } from '../../../features/event/model/useEventForm.ts';
 
 interface NotificationDialogProps {
   isOverlapDialogOpen: boolean;

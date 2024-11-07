@@ -3,7 +3,7 @@ import { afterEach, beforeEach } from 'vitest';
 
 import { Event } from '../../entities/event/model/type.ts';
 import { createNotificationMessage } from '../../entities/notification/lib/notificationUtils.ts';
-import { useNotifications } from '../../hooks/useNotifications.ts';
+import { useNotifications } from '../../features/notification/model/useNotifications.ts';
 
 const events: Event[] = [
   {

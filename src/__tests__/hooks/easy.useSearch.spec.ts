@@ -2,7 +2,7 @@ import { act, renderHook } from '@testing-library/react';
 import { expect } from 'vitest';
 
 import { Event } from '../../entities/event/model/type.ts';
-import { useSearch } from '../../hooks/useSearch.ts';
+import { useSearch } from '../../features/event/model/useSearch.ts';
 
 const events: Event[] = [
   {

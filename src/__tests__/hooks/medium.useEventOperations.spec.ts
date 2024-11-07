@@ -8,7 +8,7 @@ import {
   setupMockHandlerUpdating,
 } from '../../__mocks__/handlersUtils.ts';
 import { Event } from '../../entities/event/model/type.ts';
-import { useEventOperations } from '../../hooks/useEventOperations.ts';
+import { useEventOperations } from '../../features/event/model/useEventOperations.ts';
 import { server } from '../../setupTests.ts';
 
 const mockToast = vi.fn();

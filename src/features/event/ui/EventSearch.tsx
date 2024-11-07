@@ -12,7 +12,7 @@ import {
 
 import { Event } from '../../../entities/event/model/type.ts';
 import { notificationOptions } from '../../../entities/notification/config/constant.ts';
-import { useNotifications } from '../../../hooks/useNotifications.ts';
+import { useNotifications } from '../../notification/model/useNotifications.ts';
 
 interface EventSearchProps {
   events: Event[];
