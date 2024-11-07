@@ -14,22 +14,20 @@ import { Event } from '../../../entities/event/model/type.ts';
 import { notificationOptions } from '../../../entities/notification/config/constant.ts';
 import { useCalendarView } from '../../calendar/model/useCalendarView.ts';
 import { useNotifications } from '../../notification/model/useNotifications.ts';
-import { useEventForm } from '../model/useEventForm.ts';
-import { useEventOperations } from '../model/useEventOperations.ts';
 import { useSearch } from '../model/useSearch.ts';
 
 interface EventSearchProps {
   events: Event[];
+  filteredEvents: Event[];
+  editEvent: () => void;
+  deleteEvent: () => Promise<void>;
 }
 
-const EventSearch = ({ events }: EventSearchProps) => {
-  const { editingEvent, setEditingEvent, editEvent } = useEventForm();
+const EventSearch = ({ events, deleteEvent, editEvent }: EventSearchProps) => {
   const { view, currentDate } = useCalendarView();
 
   const { notifiedEvents } = useNotifications(events);
   const { searchTerm, filteredEvents, setSearchTerm } = useSearch(events, currentDate, view);
-
-  const { deleteEvent } = useEventOperations(Boolean(editingEvent), () => setEditingEvent(null));
 
   return (
     <VStack data-testid="event-list" w="500px" h="full" overflowY="auto">
@@ -45,7 +43,7 @@ const EventSearch = ({ events }: EventSearchProps) => {
       {filteredEvents.length === 0 ? (
         <Text>검색 결과가 없습니다.</Text>
       ) : (
-        filteredEvents.map((event) => (
+        filteredEvents.map((event: Event) => (
           <Box key={event.id} borderWidth={1} borderRadius="lg" p={3} width="100%">
             <HStack justifyContent="space-between">
               <VStack align="start">
