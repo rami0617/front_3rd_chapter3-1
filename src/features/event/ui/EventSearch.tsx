@@ -12,26 +12,24 @@ import {
 
 import { Event } from '../../../entities/event/model/type.ts';
 import { notificationOptions } from '../../../entities/notification/config/constant.ts';
+import { useCalendarView } from '../../calendar/model/useCalendarView.ts';
 import { useNotifications } from '../../notification/model/useNotifications.ts';
+import { useEventForm } from '../model/useEventForm.ts';
+import { useEventOperations } from '../model/useEventOperations.ts';
+import { useSearch } from '../model/useSearch.ts';
 
 interface EventSearchProps {
   events: Event[];
-  filteredEvents: Event[];
-  deleteEvent: (id: string) => void;
-  editEvent: (event: Event) => void;
-  searchTerm: string;
-  setSearchTerm: (searchTerm: string) => void;
 }
 
-const EventSearch = ({
-  events,
-  filteredEvents,
-  deleteEvent,
-  editEvent,
-  searchTerm,
-  setSearchTerm,
-}: EventSearchProps) => {
+const EventSearch = ({ events }: EventSearchProps) => {
+  const { editingEvent, setEditingEvent, editEvent } = useEventForm();
+  const { view, currentDate } = useCalendarView();
+
   const { notifiedEvents } = useNotifications(events);
+  const { searchTerm, filteredEvents, setSearchTerm } = useSearch(events, currentDate, view);
+
+  const { deleteEvent } = useEventOperations(Boolean(editingEvent), () => setEditingEvent(null));
 
   return (
     <VStack data-testid="event-list" w="500px" h="full" overflowY="auto">

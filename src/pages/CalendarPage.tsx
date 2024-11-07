@@ -20,12 +20,10 @@ import { validateEventForm } from '../entities/event/lib/eventUtils.ts';
 import { getTimeErrorMessage } from '../entities/event/lib/timeValidation.ts';
 import { EventForm, Event, RepeatType } from '../entities/event/model/type.ts';
 import { notificationOptions } from '../entities/notification/config/constant.ts';
-import { useCalendarView } from '../features/calendar/model/useCalendarView.ts';
 import CalendarView from '../features/calendar/ui/CalendarView.tsx';
 import { useEventForm } from '../features/event/model/useEventForm.ts';
 import { useEventOperations } from '../features/event/model/useEventOperations.ts';
 import useOverlapDialog from '../features/event/model/useOverlapDialog.ts';
-import { useSearch } from '../features/event/model/useSearch.ts';
 import EventSearch from '../features/event/ui/EventSearch.tsx';
 import NotificationDialog from '../widgets/notification/ui/NotificationDialog.tsx';
 import NotificationMessage from '../widgets/notification/ui/NotificationMessage.tsx';
@@ -61,15 +59,11 @@ const CalendarPage = () => {
     handleStartTimeChange,
     handleEndTimeChange,
     resetForm,
-    editEvent,
   } = useEventForm();
 
-  const { events, saveEvent, deleteEvent } = useEventOperations(Boolean(editingEvent), () =>
+  const { events, saveEvent } = useEventOperations(Boolean(editingEvent), () =>
     setEditingEvent(null)
   );
-
-  const { view, currentDate } = useCalendarView();
-  const { searchTerm, filteredEvents, setSearchTerm } = useSearch(events, currentDate, view);
 
   const { isOverlapDialogOpen, overlappingEvents, openOverlapDialog, closeOverlapDialog } =
     useOverlapDialog();
@@ -255,20 +249,12 @@ const CalendarPage = () => {
 
         <CalendarView events={events} />
 
-        <EventSearch
-          events={events}
-          filteredEvents={filteredEvents}
-          deleteEvent={deleteEvent}
-          editEvent={editEvent}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-        />
+        <EventSearch events={events} />
       </Flex>
 
       <NotificationDialog
-        setIsOverlapDialogOpen={closeOverlapDialog}
+        closeOverlapDialog={closeOverlapDialog}
         isOverlapDialogOpen={isOverlapDialogOpen}
-        saveEvent={saveEvent}
         overlappingEvents={overlappingEvents}
       />
 

@@ -12,18 +12,17 @@ import { useRef } from 'react';
 
 import { Event } from '../../../entities/event/model/type.ts';
 import { useEventForm } from '../../../features/event/model/useEventForm.ts';
+import { useEventOperations } from '../../../features/event/model/useEventOperations.ts';
 
 interface NotificationDialogProps {
   isOverlapDialogOpen: boolean;
-  setIsOverlapDialogOpen: (isOverlapDialogOpen: boolean) => void;
-  saveEvent: (event: Event) => void;
+  closeOverlapDialog: () => void;
   overlappingEvents: Event[];
 }
 
 const NotificationDialog = ({
   isOverlapDialogOpen,
-  setIsOverlapDialogOpen,
-  saveEvent,
+  closeOverlapDialog,
   overlappingEvents,
 }: NotificationDialogProps) => {
   const {
@@ -40,7 +39,10 @@ const NotificationDialog = ({
     repeatEndDate,
     notificationTime,
     editingEvent,
+    setEditingEvent,
   } = useEventForm();
+
+  const { saveEvent } = useEventOperations(Boolean(editingEvent), () => setEditingEvent(null));
 
   const cancelRef = useRef<HTMLButtonElement>(null);
 
@@ -48,7 +50,7 @@ const NotificationDialog = ({
     <AlertDialog
       isOpen={isOverlapDialogOpen}
       leastDestructiveRef={cancelRef}
-      onClose={() => setIsOverlapDialogOpen(false)}
+      onClose={() => closeOverlapDialog()}
     >
       <AlertDialogOverlay>
         <AlertDialogContent>
@@ -58,22 +60,23 @@ const NotificationDialog = ({
 
           <AlertDialogBody>
             다음 일정과 겹칩니다:
-            {overlappingEvents.map((event) => (
-              <Text key={event.id}>
-                {event.title} ({event.date} {event.startTime}-{event.endTime})
+            {overlappingEvents.map((overlappingEvent) => (
+              <Text key={overlappingEvent.id}>
+                {overlappingEvent.title} ({overlappingEvent.date} {overlappingEvent.startTime}-
+                {overlappingEvent.endTime})
               </Text>
             ))}
             계속 진행하시겠습니까?
           </AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={() => setIsOverlapDialogOpen(false)}>
+            <Button ref={cancelRef} onClick={() => closeOverlapDialog()}>
               취소
             </Button>
             <Button
               colorScheme="red"
               onClick={() => {
-                setIsOverlapDialogOpen(false);
+                closeOverlapDialog();
                 saveEvent({
                   id: editingEvent ? editingEvent.id : '',
                   title,
