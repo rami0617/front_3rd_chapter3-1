@@ -7,8 +7,10 @@ import { notificationOptions } from '../../../entities/notification/config/const
 interface EventListProps {
   notifiedEvents: string[];
   event: Event;
-  editEvent: void;
-  deleteEvent: void;
+  // eslint-disable-next-line no-unused-vars
+  editEvent: (event: Event) => void;
+  // eslint-disable-next-line no-unused-vars
+  deleteEvent: (id: string) => void;
 }
 
 const EventList = ({ notifiedEvents, event, editEvent, deleteEvent }: EventListProps) => {
