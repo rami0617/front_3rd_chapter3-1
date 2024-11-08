@@ -1,48 +1,10 @@
 import { act, renderHook } from '@testing-library/react';
 import { afterEach, beforeEach } from 'vitest';
 
+import { events } from '../../__mocks__/response/events.json' assert { type: 'json' };
 import { Event } from '../../entities/event/model/type.ts';
 import { createNotificationMessage } from '../../entities/notification/lib/notificationUtils.ts';
 import { useNotifications } from '../../features/notification/model/useNotifications.ts';
-
-const events: Event[] = [
-  {
-    id: '1',
-    title: '이벤트',
-    date: '2024-07-02',
-    startTime: '10:00',
-    endTime: '11:00',
-    description: 'Description 1',
-    location: 'Location 1',
-    category: 'Work',
-    repeat: { type: 'weekly', interval: 1 },
-    notificationTime: 30,
-  },
-  {
-    id: '2',
-    title: 'DANCETIME',
-    date: '2024-07-05',
-    startTime: '11:00',
-    endTime: '12:00',
-    description: 'Description 1',
-    location: 'Location 1',
-    category: 'Work',
-    repeat: { type: 'weekly', interval: 1 },
-    notificationTime: 30,
-  },
-  {
-    id: '3',
-    title: '이벤트3',
-    date: '2024-07-20',
-    startTime: '12:00',
-    endTime: '13:00',
-    description: 'Description 1',
-    location: 'Location 1',
-    category: 'Work',
-    repeat: { type: 'weekly', interval: 1 },
-    notificationTime: 30,
-  },
-];
 
 describe('useNotifications', () => {
   beforeEach(() => {
@@ -54,14 +16,14 @@ describe('useNotifications', () => {
   });
 
   it('초기 상태에서는 알림이 없어야 한다', () => {
-    const { result } = renderHook(() => useNotifications(events));
+    const { result } = renderHook(() => useNotifications(events as Event[]));
 
     expect(result.current.notifications).toEqual([]);
     expect(result.current.notifiedEvents).toEqual([]);
   });
 
   it('지정된 시간이 된 경우 알림이 새롭게 생성되어 추가된다', () => {
-    const { result } = renderHook(() => useNotifications(events));
+    const { result } = renderHook(() => useNotifications(events as Event[]));
 
     act(() => {
       vi.advanceTimersByTime(30 * 60 * 1000);
@@ -81,7 +43,7 @@ describe('useNotifications', () => {
   });
 
   it('index를 기준으로 알림을 제거할 수 있다', () => {
-    const { result } = renderHook(() => useNotifications(events));
+    const { result } = renderHook(() => useNotifications(events as Event[]));
 
     act(() => {
       events.map((event) => {
@@ -100,7 +62,7 @@ describe('useNotifications', () => {
   });
 
   it('이미 알림이 발생한 이벤트에 대해서는 중복 알림이 발생하지 않아야 한다', () => {
-    const { result } = renderHook(() => useNotifications(events));
+    const { result } = renderHook(() => useNotifications(events as Event[]));
 
     act(() => {
       result.current.setNotifications([

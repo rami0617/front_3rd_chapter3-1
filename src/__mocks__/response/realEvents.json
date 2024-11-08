@@ -23,44 +23,6 @@
       "category": "",
       "repeat": { "type": "none", "interval": 1 },
       "notificationTime": 10
-    },
-    {
-      "id": "1d643616-f90c-4b88-89c9-0cdceaf34e59",
-      "title": "2",
-      "date": "2024-11-15",
-      "startTime": "12:48",
-      "endTime": "14:48",
-      "description": "",
-      "location": "",
-      "category": "",
-      "repeat": { "type": "none", "interval": 1 },
-      "notificationTime": 10
-    },
-    {
-      "id": "92f7b24d-e8dd-4348-8830-afcb55cd70a3",
-      "title": "",
-      "date": "",
-      "startTime": "",
-      "endTime": "",
-      "description": "",
-      "location": "",
-      "category": "",
-      "repeat": { "type": "none", "interval": 1 },
-      "notificationTime": 10
-    },
-    {
-      "id": "c81e43a7-e53a-4863-8e2c-368162abd920",
-      "title": "",
-      "date": "",
-      "startTime": "",
-      "endTime": "",
-      "description": "",
-      "location": "",
-      "category": "",
-      "repeat": { "type": "none", "interval": 1 },
-      "notificationTime": 10
-    },
-    { "id": "1fe706f3-1f76-4939-824e-bc43105c7b78" },
-    { "id": "b34fcd48-5651-4568-a6c8-4dedcaf27dd3" }
+    }
   ]
 }

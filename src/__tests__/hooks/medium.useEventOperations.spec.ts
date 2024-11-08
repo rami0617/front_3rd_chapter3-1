@@ -7,6 +7,7 @@ import {
   setupMockHandlerDeletion,
   setupMockHandlerUpdating,
 } from '../../__mocks__/handlersUtils.ts';
+import { events } from '../../__mocks__/response/events.json' assert { type: 'json' };
 import { Event } from '../../entities/event/model/type.ts';
 import { useEventOperations } from '../../features/event/model/useEventOperations.ts';
 import { server } from '../../setupTests.ts';
@@ -20,67 +21,39 @@ vi.mock('@chakra-ui/react', async () => {
   };
 });
 
-const initialEvents: Event[] = [
-  {
-    id: '1',
-    title: '이벤트',
-    date: '2024-07-02',
-    startTime: '10:00',
-    endTime: '11:00',
-    description: '설명 1',
-    location: '위치 1',
-    category: '업무',
-    repeat: { type: 'weekly', interval: 1 },
-    notificationTime: 30,
-  },
-];
-
 describe('useEventOperations - 이벤트 CRUD', () => {
   beforeEach(() => {
-    setupMockHandlerCreation(initialEvents);
+    setupMockHandlerCreation(events as Event[]);
   });
 
   it('초기 이벤트 데이터를 모두 불러온다', async () => {
     const { result } = renderHook(() => useEventOperations(false));
 
     await waitFor(() => {
-      expect(result.current.events).toEqual(initialEvents);
+      expect(result.current.events).toEqual(events);
     });
   });
 
   it('새로운 이벤트를 추가하고 이벤트 데이터 리스트에 저장한다', async () => {
-    const newEvent: Event = {
-      id: '2',
-      title: '추가된 이벤트',
-      date: '2024-07-05',
-      startTime: '11:00',
-      endTime: '12:00',
-      description: '새로운 이벤트 설명',
-      location: '위치 2',
-      category: '업무',
-      repeat: { type: 'none', interval: 0 },
-      notificationTime: 15,
-    };
-
     const { result } = renderHook(() => useEventOperations(false));
 
     await act(async () => {
-      await result.current.saveEvent(newEvent);
+      await result.current.saveEvent(events[1] as Event);
     });
 
     await waitFor(() => {
-      expect(result.current.events).toContainEqual(newEvent);
+      expect(result.current.events).toContainEqual(events[1]);
     });
   });
 
   it('이벤트 정보를 수정하고 변경사항이 이벤트 데이터 리스트에 반영된다', async () => {
     const updatedEvent: Event = {
-      ...initialEvents[0],
+      ...(events[0] as Event),
       title: '업데이트된 이벤트',
       endTime: '12:00',
     };
 
-    setupMockHandlerUpdating(initialEvents);
+    setupMockHandlerUpdating(events as Event[]);
 
     const { result } = renderHook(() => useEventOperations(true));
 
